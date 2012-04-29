@@ -25,11 +25,7 @@
     var STATUS_ROUND = 5;
     var ANGLE = 20;
 
-    var ORDERS = [
-        {id: 0, status: 0},
-        {id: 1, status: 3},
-        {id: 2, status: 1},
-        {id: 3, status: 2}];
+    var ORDERS = [];
 
     var STATUS = [];
 
@@ -120,11 +116,13 @@
         .transition().delay()
         .attr('width', STATUS_WIDTH); };
 
-    for (var index=0; index < ORDERS.length; index++) {
-        var cx = 150 + index * 40;
-        var cy = 150;
-        var order = ORDERS[index];
-        create_order(cx, cy, order);};
+    function display_orders() {
+        for (var index=0; index < ORDERS.length; index++) {
+            var cx = 150 + index * 40;
+            var cy = 150;
+            var order = ORDERS[index];
+            create_order(cx, cy, order);
+            }; };
 
     $.get('statuses', function(response) {
         var statuses = $.parseJSON(response);
@@ -132,8 +130,15 @@
             var color = d3.scale.category20().domain([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19])
             var status_ = statuses[index];
             STATUS.push({id: status_.id, color: color(status_.id)})
-        }
-    });
+            }; });
+
+    $.get('orders', function(response) {
+        var orders = $.parseJSON(response);
+        for (index=0; index < orders.length; index ++) {
+            var order = orders[index];
+            ORDERS.push({id: order.id, status: order.status_id})
+            display_orders();
+            }; });
 
     </script>
 </html>

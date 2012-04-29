@@ -32,11 +32,17 @@ class App:
 
     @cherrypy.expose
     def statuses(self):
-        """ contact BigCommerce to get list of all statuses """
+        """ contact BigCommerce to get a list of all statuses """
         big = BigCommerceAPI()
         response = big.get('orderstatuses')
         return response.text
 
+    @cherrypy.expose
+    def orders(self):
+        """ contact BigCommerce to get the order book """
+        big = BigCommerceAPI()
+        response = big.get('orders')
+        return response.text
 
 application = cherrypy.tree.mount(App(), '')
 
