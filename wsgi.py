@@ -6,6 +6,7 @@ from cherrypy.lib.static import serve_file
 import requests
 from requests.auth import HTTPBasicAuth
 
+
 class BigCommerceAPI(object):
     """ ad-hoc BigCommerce API wrapper """
 
@@ -60,6 +61,7 @@ class App:
         return 'OK'
 
 application = cherrypy.tree.mount(App(), '')
+
 
 if __name__ == '__main__':
     current_dir = os.path.dirname(os.path.abspath(__file__))

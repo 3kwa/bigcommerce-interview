@@ -47,7 +47,17 @@ var BCVis = ( function() {
             var cy = this.cy.baseVal.value;
             create_aura(cx, cy, order.id); }); };
 
+    function remove_aura() {
+        d3.select('circle.aura').transition()
+        .attr('r', 0).remove();
+        d3.selectAll('g.aura rect').transition()
+        .attr('width', 0).remove();
+        d3.selectAll('g.aura').transition().delay().remove();
+    };
+
     function create_aura(cx, cy, order_id) {
+        // to avoid duplication of aura
+        remove_aura();
         d3.select('svg').append('g').attr('class', 'aura').append('circle')
         .attr('cx', cx)
         .attr('cy', cy)
@@ -56,12 +66,9 @@ var BCVis = ( function() {
         .attr('fill', '#eeeeee')
         .attr('stroke', '#dddddd')
         .attr('stroke-width', '1px')
-        .attr('class', 'aura').on('click', function() {
-            d3.select('circle.aura').transition()
-                .attr('r', 0).remove();
-            d3.selectAll('g.aura rect').transition()
-                .attr('width', 0).remove();
-            d3.selectAll('g.aura').transition().delay().remove(); })
+        .attr('class', 'aura')
+        .on('click', function() {
+            remove_aura(); })
         .transition()
         .attr('r', AURA_RADIUS);
         var g = d3.select('g.aura');
