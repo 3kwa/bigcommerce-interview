@@ -40,6 +40,8 @@ trial store hence no order(s) will be seen.
 Verdict
 -------
 
+.. image:: static/img/d3-commerce.png
+
 Utterly userless in practice but lots of fun to come up with and code!
 d3.js_ could be an awesome way to develop interactive visualisation for tablet
 (web) apps.
