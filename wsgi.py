@@ -1,4 +1,5 @@
 import os
+import json
 
 import cherrypy
 from cherrypy.lib.static import serve_file
@@ -19,6 +20,13 @@ class BigCommerceAPI(object):
         url = "%s%s.json" % (self.url, api)
         return requests.get(url, auth=self.authentication())
 
+    def put(self, api, data):
+        headers = {'content-type' : 'application/json'}
+        url = "%s%s" % (self.url, api)
+        return requests.put(url,
+                            json.dumps(data),
+                            auth=self.authentication(),
+                            headers=headers)
 
 class App:
 
@@ -43,6 +51,13 @@ class App:
         big = BigCommerceAPI()
         response = big.get('orders')
         return response.text
+
+    @cherrypy.expose
+    def order(self, order, status):
+        """ changing order's status """
+        big = BigCommerceAPI()
+        big.put("orders/%s" % order, {'status_id' : status})
+        return 'OK'
 
 application = cherrypy.tree.mount(App(), '')
 
