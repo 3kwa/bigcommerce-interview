@@ -17,9 +17,9 @@
         // we could use a CSS but since we have d3
         d3.select('body').style('background-color','lightblue');
 
-        // BCVis.STATUS and BCVis.ORDERS run asynchronously
+        // BCVis.STATUS and BCVis.ORDERS are "completed" asynchronously
         // BCVis.display_orders() shouldn't be executed until both (2) callbacks
-        // are done
+        // are done (black circle of uglyness)
         var after = function (times, func) {
             if (times <= 0) return func();
             return function() {

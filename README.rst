@@ -3,8 +3,8 @@ Having fun with d3.js and the BigCommerce API
 
 Why not?
 
-Given a list of orders and there respective status do something schnazy and
-visually appealing, bording on the practically unusable but cool anyway.
+Given a list of orders and their respective status do something schnazy and
+visually appealing, verging on the practically unusable but cool anyway.
 
 Organic evolution
 -----------------
@@ -15,7 +15,7 @@ order) one could hover on to change the status presented with text. It became
 a color coded click and play thingy that I find really fun.
 
 Initially I was going to do everything in Javascript but the BigCommerce_ API
-doesn't appear to be cross domain request friendly hence put together a
+doesn't appear to be cross domain request friendly hence I put together a
 CherryPy_ based "proxy" that runs locally and can be pushed on dotCloud_ in
 seconds.
 
@@ -42,7 +42,7 @@ Verdict
 
 .. image:: bigcommerce/raw/master/static/img/d3-commerce.png
 
-Utterly userless in practice but lots of fun to come up with and code!
+Utterly useless in practice but lots of fun to come up with and code!
 d3.js_ could be an awesome way to develop interactive visualisation for tablet
 (web) apps.
 
