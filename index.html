@@ -17,6 +17,17 @@
         // we could use a CSS but since we have d3
         d3.select('body').style('background-color','lightblue');
 
+        // BCVis.STATUS and BCVis.ORDERS run asynchronously
+        // BCVis.display_orders() shouldn't be executed until both (2) callbacks
+        // are done
+        var after = function (times, func) {
+            if (times <= 0) return func();
+            return function() {
+                if (--times < 1) { return func.apply(this, arguments); }
+            };
+        };
+        var show = after(2, BCVis.display_orders);
+
         // retrieving all possible statuses from BC and instatiating BCVis.STATUS
         $.get('statuses', function(response) {
             var statuses = $.parseJSON(response);
@@ -24,7 +35,9 @@
                 var color = d3.scale.category20().domain([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19])
                 var status_ = statuses[index];
                 BCVis.STATUS.push({id: status_.id, color: color(status_.id)})
-                }; });
+                };
+            show();
+            });
 
         // retrieving all orders from BC, instatiating BCVis.ORDERS and
         // building the display
@@ -34,7 +47,7 @@
                 var order = orders[index];
                 BCVis.ORDERS.push({id: order.id, status: order.status_id})
                 };
-            BCVis.display_orders();
+            show();
         });
     </script>
 </html>
