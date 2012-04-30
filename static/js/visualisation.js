@@ -49,15 +49,16 @@ var BCVis = ( function() {
 
     function remove_aura() {
         d3.select('circle.aura').transition()
-        .attr('r', 0).remove();
-        d3.selectAll('g.aura rect').transition()
-        .attr('width', 0).remove();
+        .attr('opacity', 0);
+        d3.selectAll('g.aura rect').attr('opacity', 1).transition()
+        .attr('opacity', 0);
         d3.selectAll('g.aura').transition().delay().remove();
     };
 
     function create_aura(cx, cy, order_id) {
-        // to avoid duplication of aura
-        remove_aura();
+        // to avoid duplication of aura (visually more appealing than calling
+        // remove_aura
+        d3.selectAll('g.aura').remove();
         d3.select('svg').append('g').attr('class', 'aura').append('circle')
         .attr('cx', cx)
         .attr('cy', cy)
@@ -112,7 +113,7 @@ var BCVis = ( function() {
 
     module.display_orders = function() {
         for (var index=0; index < module.ORDERS.length; index++) {
-            var cx = 150 + index * 40;
+            var cx = 150 + index * 150;
             var cy = 150;
             var order = module.ORDERS[index];
             create_order(cx, cy, order);
